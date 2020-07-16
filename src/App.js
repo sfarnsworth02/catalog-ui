@@ -1,8 +1,7 @@
 import React from 'react';
 import './App.css';
-import NavList from './components/navigation/Navigation.js'
-import NewNote from './components/main-pages/Notes.Crud.js';
-import NoteList from './components/main-pages/Notes.List.js';
+import NavList from './components/navigation/Navigation.js';
+import NoteList from './components/main-pages/Notes.js';
 
 
 function App() {
@@ -17,12 +16,7 @@ function App() {
         <NavList className='nav-list' />
       </header>
       <body>
-        <div className='crud-note'>
-          <NewNote />
-        </div>
-        <div className='list-note'>
-          <NoteList />
-        </div>
+        <NoteList />
       </body>
     </div>
   );
