@@ -1,38 +1,49 @@
 .App {
   text-align: center;
+  margin: 0px;
+  padding: 0px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* CONTENT HEADER */
+header {
+  background-color:bisque;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  flex-direction: row;
+  padding: 0 2em;
+  justify-content: space-around;
+  font-size: calc(2px + 2vmin);
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.main-content {
+  min-width: 50%;
+}
+nav {
+  min-width: 50%;
+}
+.concept-list {
+  list-style: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* CONTENT CRUD */
+body .crud-note {
+  background-color: burlywood;
+  padding: 5em;
+}
+.crud-note p {
+  /* this is specifically in the content placeholder,
+  remove as needed */
+  margin: 0px;
+}
+
+/* CONTENT BODY */
+/* this will be nav component pages */
+body .list-note {
+  background-color: cadetblue;
+  padding: 3em;
+  min-height: 100vh;
+}
+.list-note p {
+  /* this is specifically in the content placeholder,
+  remove as needed */
+  margin: 0px;
 }
