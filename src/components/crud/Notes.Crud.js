@@ -1,8 +1,15 @@
 import React from 'react';
 
-    /* 
-    handleChange, updateItem, createNote, deleteNote, filterNotes,
-     */
+
+/*
+I would like to eventually house all of the crud apps here in one spot and 
+call them from any file. I'll play around with that after I have a functioning crud app 
+ 
+   { route, handleChange, updateItem, createNote, deleteNote, filterNotes, }
+*/
+
+
+export let route = 'http://localhost:5007'
 
 export function updateItem(props) 
 {

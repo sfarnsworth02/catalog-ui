@@ -15,9 +15,9 @@ function App() {
         </div>
         <NavList className='nav-list' />
       </header>
-      <body>
+      <section>
         <NoteList />
-      </body>
+      </section>
     </div>
   );
 }

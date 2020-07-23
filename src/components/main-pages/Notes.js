@@ -1,6 +1,7 @@
 import React, { Component as RC } from 'react';
-import NewNote from '../form/Notes.Form';
-import { 
+import NoteForm from '../form/Notes.Form';
+import {  
+    route
     /* 
     handleChange, updateItem, createNote, deleteNote, filterNotes
      */
@@ -14,32 +15,55 @@ export default class NotesList extends RC
     {
         super();
         this.state = {
-            allNotes: [],
+            allNotes: [], // an array of the elements
+            notes: [], // array of actual notes data
+            edit: ''
         }
     }
 
     // add map function with fetch to display all unanswered notes
     getNotes = () =>
     {
-    
-        fetch('http://localhost:5007/notes')
+        fetch(`${route}/notes`)  
         .then((response) =>
         {
-            return response.json()
+            return response.json();
         })
         .then((data) =>
         {
-            // if( !data )
-            //     { console.log('Error with returned data: ', data)};
+            console.log('data response: ', data)
             this.setState({
-                allNotes: data.map((note) =>
+                notes: data,
+                allNotes: data.map((note, i) =>
                 {
                     return <li
                         key={note._id}
-                        id={note._id}><span className='note-topic'>{note.label}</span> | <span className='note-question'>{note.question}</span><hr/></li>
+                        id={note._id}
+                        onClick={this.updateNote}
+                        ><span>{note.label}</span><br/><span>{note.question}</span> <hr/>
+                        </li>
                 }),
             })
         })
+    }
+    updateNote = (e) =>
+    {
+        const id = e.target.getAttribute('id');
+        console.log('id: ', id);
+        const stupidFind = (id) =>
+        {
+            for (let i=0; i<this.state.notes.length; i++)
+            {
+                let note = this.state.notes[i];
+                if (note._id === id)
+                {
+                    return note;
+                }
+            }
+            return null;
+        }
+        let thisNote = stupidFind(id);
+        console.log('this note: ', thisNote);
     }
 
     // call map function from component did mount for initial display
@@ -53,7 +77,8 @@ export default class NotesList extends RC
         return(
         <div>
             <div className='crud-note'>
-                <NewNote />
+                <NoteForm
+                getNotes={this.getNotes} />
             </div>
             <div className='list-note'>
                 <h4>Note Topic & Question</h4>
