@@ -8,11 +8,13 @@ export default class NewNote extends RC
         super(props);
         this.state = {
             edit: props.edit, 
+            id: props.id,
             label: props.label,
             tag: props.tag,
             question: props.question,
             answer: props.answer,
-            isAnswered: props.isAnswered
+            isAnswered: props.isAnswered,
+            action: props.action,
         }
     }
 
@@ -21,17 +23,20 @@ export default class NewNote extends RC
        e.preventDefault();
        let id = this.props.id;
        let http = "POST";
-       if (id) {
-           http ='PUT'
-           return http ;
+       if (this.props.action === 'Update') 
+       {
+           http ='PUT';
+       } else if (this.props.action === 'Delete')
+       {
+           http = 'DELETE'
        }
-       let vpRoute = `${route}/notes`;
-       if (id) {
-            vpRoute = `${route}/notes/${id}`
+       let vpRoute = `${route}/notes/`;
+
+       if (http === 'PUT' || http === 'DELETE') {;
+            console.log('alright it made it to verify the route id: ', vpRoute);
+            vpRoute = `${vpRoute}${id}`;
        }
-       console.log('id is: ', id);
-       console.log('http method: ', http);
-       console.log('vpRoute: ', vpRoute);
+       console.log('Whats my action? ', this.props.action);
        const fetchOptions= {
            headers: { 'Content-Type': 'application/json' },
            method: `${http}`,
@@ -44,7 +49,8 @@ export default class NewNote extends RC
        })
        .then((result) =>
        {
-            this.props.getNotes();
+           console.log('this result? ', result)
+            this.props.getNotes();  //my fetch works but there is an error that pops saying this isn't a function   
        })
        .then((formData) =>
        {
@@ -55,6 +61,10 @@ export default class NewNote extends RC
                answer: '',
            })
        })
+       .catch((err) =>
+       {
+           return console.log('There was an error somewhere in your handleSubmit', err)
+       })
     }
 
     handleChange = (e) =>
@@ -63,16 +73,16 @@ export default class NewNote extends RC
         const key = e.target.getAttribute('name');
         const update = {};
         update[key] = e.target.value;
-        this.setState(update);    
+        this.setState(update); 
     }
+
     render()
     {
-        // console.log('state of the task name: ', this.state)
         return(
         <div>
             <form className='note-data-form' onSubmit={this.handleSubmit}>
                 <span>
-                    <label> Name: </label>
+                    <label> Concept: </label>
                     {/* required */}
                     <input
                         value={this.state.label}
@@ -81,7 +91,7 @@ export default class NewNote extends RC
                      />
                 </span>
                 <span>
-                    <label> Tags: </label>
+                    <label> Language Base: </label>
                     {/* required */}
                     <input
                         value={this.state.tag}
